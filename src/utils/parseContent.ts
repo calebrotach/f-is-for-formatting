@@ -1,3 +1,6 @@
+import { stripAIArtifacts } from './stripAIArtifacts';
+import { stripInlineMarkdown } from './stripInlineMarkdown';
+
 export interface ContentSection {
   title: string;
   items: string[];
@@ -8,14 +11,18 @@ export interface ParsedContent {
   subtitle?: string;
   sections: ContentSection[];
   rawText: string;
+  /** True if AI conversation artifacts were stripped from the input */
+  hadAIArtifacts?: boolean;
 }
 
 /**
  * Parses raw resume/content text into structured sections.
+ * Strips AI conversation elements (User:, Assistant:, wrapper phrases) before parsing.
  * Handles common formats: markdown headers, bullet points, plain text.
  */
 export function parseContent(rawText: string): ParsedContent {
-  const lines = rawText.trim().split('\n').map(l => l.trim());
+  const { cleaned, hadArtifacts } = stripAIArtifacts(rawText);
+  const lines = cleaned.trim().split('\n').map(l => l.trim());
   const sections: ContentSection[] = [];
   let currentSection: ContentSection | null = null;
   let title: string | undefined;
@@ -29,9 +36,11 @@ export function parseContent(rawText: string): ParsedContent {
     const h2Match = line.match(/^##\s+(.+)$/);
     const h3Match = line.match(/^###\s+(.+)$/);
     const h1Match = line.match(/^#\s+(.+)$/);
+    // **Bold** section headers (common across ChatGPT, Claude, Gemini, etc.)
+    const boldHeaderMatch = line.match(/^\*\*(.+)\*\*\s*$/);
 
     if (h1Match) {
-      if (!title) title = h1Match[1];
+      if (!title) title = stripInlineMarkdown(h1Match[1].trim());
       continue;
     }
 
@@ -40,9 +49,21 @@ export function parseContent(rawText: string): ParsedContent {
         sections.push(currentSection);
       }
       currentSection = {
-        title: (h2Match || h3Match)![1],
+        title: stripInlineMarkdown((h2Match || h3Match)![1].trim()),
         items: []
       };
+      continue;
+    }
+
+    // **Bold** as section header - common format across ChatGPT, Claude, Gemini, Copilot, etc.
+    const boldContent = boldHeaderMatch?.[1].trim() ?? '';
+    const KNOWN_SECTIONS = /^(Experience|Education|Skills|Summary|Objective|Projects|Certifications|Work Experience|Professional Experience|Technical Skills|Languages|References|Achievements|Honors|Activities|Contact|Employment|Work History|Academic|Qualifications|Publications|Volunteer|Interests|Additional Information|About Me|Profile|Relevant Experience|Key Skills|Core Competencies|Professional Summary|Career Objective)$/i;
+    const isLikelySectionHeader = boldHeaderMatch && boldContent.length < 50 && KNOWN_SECTIONS.test(boldContent);
+    if (isLikelySectionHeader) {
+      if (currentSection && currentSection.items.length > 0) {
+        sections.push(currentSection);
+      }
+      currentSection = { title: boldContent, items: [] };
       continue;
     }
 
@@ -55,7 +76,7 @@ export function parseContent(rawText: string): ParsedContent {
 
     if (looksLikeHeader && !currentSection) {
       if (!title) {
-        title = line;
+        title = stripInlineMarkdown(line);
         continue;
       }
     }
@@ -69,7 +90,7 @@ export function parseContent(rawText: string): ParsedContent {
     const numberedMatch = line.match(/^\d+\.\s+(.+)$/);
 
     if (bulletMatch || numberedMatch) {
-      const content = (bulletMatch || numberedMatch)![1];
+      const content = stripInlineMarkdown((bulletMatch || numberedMatch)![1]);
       if (currentSection) {
         currentSection.items.push(content);
       } else {
@@ -88,23 +109,24 @@ export function parseContent(rawText: string): ParsedContent {
     }
 
     // Regular paragraph - could be subtitle or section content
+    const cleanedLine = stripInlineMarkdown(line);
     if (!title && line.length < 80) {
-      title = line;
+      title = cleanedLine;
       continue;
     }
     if (title && !subtitle && line.length < 80 && i === 1) {
-      subtitle = line;
+      subtitle = cleanedLine;
       continue;
     }
 
     // Add as item to current section
     if (currentSection && line.length > 0) {
-      currentSection.items.push(line);
+      currentSection.items.push(cleanedLine);
     } else if (line.length > 2 && !currentSection && sections.length > 0) {
-      sections[sections.length - 1].items.push(line);
+      sections[sections.length - 1].items.push(cleanedLine);
     } else if (line.length > 2 && sections.length === 0) {
       if (!title) title = 'Content';
-      sections.push({ title: 'Overview', items: [line] });
+      sections.push({ title: 'Overview', items: [cleanedLine] });
     }
   }
 
@@ -116,17 +138,18 @@ export function parseContent(rawText: string): ParsedContent {
     title,
     subtitle,
     sections: sections.filter(s => s.items.length > 0 || s.title),
-    rawText
+    rawText: cleaned,
+    hadAIArtifacts: hadArtifacts,
   };
 }
 
 /**
  * Splits parsed content into slides - each section becomes a slide,
  * with long sections potentially split across multiple slides.
+ * @param maxItemsPerSlide - compact: 6, spacious: 3
  */
-export function contentToSlides(parsed: ParsedContent): string[][] {
+export function contentToSlides(parsed: ParsedContent, maxItemsPerSlide = 4): string[][] {
   const slides: string[][] = [];
-  const maxItemsPerSlide = 4;
 
   // Title slide
   if (parsed.title) {

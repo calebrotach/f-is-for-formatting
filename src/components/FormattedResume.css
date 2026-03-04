@@ -15,6 +15,39 @@
   box-shadow: var(--shadow-soft);
 }
 
+/* Condense layout: fit on one page */
+.formatted-resume.layout-condense .resume-paper {
+  padding: 1.5rem 2rem;
+}
+
+.formatted-resume.layout-condense .resume-header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.formatted-resume.layout-condense .resume-name {
+  font-size: 1.5rem;
+}
+
+.formatted-resume.layout-condense .resume-subtitle {
+  font-size: 0.85rem;
+}
+
+.formatted-resume.layout-condense .resume-sections {
+  gap: 0.75rem;
+}
+
+.formatted-resume.layout-condense .resume-section-title {
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.formatted-resume.layout-condense .resume-item {
+  margin-bottom: 0.35rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
 .resume-header {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
@@ -84,4 +117,155 @@
 
 .resume-item:last-child {
   margin-bottom: 0;
+}
+
+/* Structured job entries */
+.resume-job {
+  margin-bottom: 1.25rem;
+  break-inside: avoid;
+}
+
+.resume-job:last-child {
+  margin-bottom: 0;
+}
+
+.resume-job-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.resume-job-company {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-charcoal);
+}
+
+.resume-job-role {
+  color: var(--color-warm-gray);
+  font-size: 0.95rem;
+}
+
+.resume-job-dates {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--color-warm-gray);
+}
+
+.resume-job-location {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-warm-gray);
+}
+
+.resume-job .resume-list {
+  margin-top: 0.25rem;
+}
+
+/* Structured education entries */
+.resume-edu {
+  margin-bottom: 1rem;
+  break-inside: avoid;
+}
+
+.resume-edu:last-child {
+  margin-bottom: 0;
+}
+
+.resume-edu-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.resume-edu-institution {
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.resume-edu-degree {
+  color: var(--color-warm-gray);
+  font-size: 0.95rem;
+}
+
+.resume-edu-dates {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--color-warm-gray);
+}
+
+/* Skills */
+.resume-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.resume-skill-group {
+  font-size: 0.95rem;
+}
+
+.resume-skill-name {
+  font-weight: 500;
+  color: var(--color-charcoal);
+}
+
+.resume-skill-keywords {
+  color: var(--color-warm-gray);
+}
+
+/* Projects */
+.resume-project {
+  margin-bottom: 1.25rem;
+  break-inside: avoid;
+}
+
+.resume-project:last-child {
+  margin-bottom: 0;
+}
+
+.resume-project-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.resume-project-name {
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.resume-project-dates {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: var(--color-warm-gray);
+}
+
+.resume-project-desc {
+  margin: 0.25rem 0 0.4rem;
+  font-size: 0.9rem;
+  color: var(--color-warm-gray);
+}
+
+.resume-summary {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: var(--color-warm-gray);
+  line-height: 1.5;
+}
+
+/* Condense overrides for structured sections */
+.formatted-resume.layout-condense .resume-job,
+.formatted-resume.layout-condense .resume-edu,
+.formatted-resume.layout-condense .resume-project {
+  margin-bottom: 0.75rem;
+}
+
+.formatted-resume.layout-condense .resume-job-company,
+.formatted-resume.layout-condense .resume-edu-institution {
+  font-size: 0.9rem;
 }

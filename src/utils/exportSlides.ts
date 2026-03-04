@@ -6,7 +6,8 @@ import type { VibeOptions } from '../components/VibesSelector'
  * Generates HTML for slides (used for PDF export of slide deck)
  */
 export function slidesToHtml(parsed: ParsedContent, vibes: VibeOptions): string {
-  const slides = contentToSlides(parsed)
+  const maxItems = vibes.slideStyle === 'spacious' ? 3 : 6
+  const slides = contentToSlides(parsed, maxItems)
   const accent = getPaletteAccent(vibes.palette)
 
   let html = `
@@ -90,7 +91,8 @@ function escapeHtml(s: string): string {
 export async function slidesToPptx(parsed: ParsedContent, vibes: VibeOptions): Promise<Blob> {
   const PptxGenJS = (await import('pptxgenjs')).default
   const pptx = new PptxGenJS()
-  const slides = contentToSlides(parsed)
+  const maxItems = vibes.slideStyle === 'spacious' ? 3 : 6
+  const slides = contentToSlides(parsed, maxItems)
   const accent = getPaletteAccent(vibes.palette)
 
   for (let i = 0; i < slides.length; i++) {

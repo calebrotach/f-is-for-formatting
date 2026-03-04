@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { parseContent } from './utils/parseContent'
+import { parseToResumeData } from './utils/parseToResume'
 import ContentInput from './components/ContentInput'
 import FormattedResume from './components/FormattedResume'
 import SlideDeck from './components/SlideDeck'
 import FormattingGuide from './components/FormattingGuide'
+import OutputTypeSelector from './components/OutputTypeSelector'
 import VibesSelector, { type VibeOptions } from './components/VibesSelector'
 import DownloadLinks from './components/DownloadLinks'
 import './theme.css'
@@ -40,10 +42,13 @@ function App() {
   const [vibes, setVibes] = useState<VibeOptions>({
     palette: 'classic',
     font: 'instrument-dm',
+    resumeLayout: 'expand',
+    slideStyle: 'compact',
   })
   const [showFormattingGuide, setShowFormattingGuide] = useState(false)
 
   const parsed = parseContent(content)
+  const resumeData = parseToResumeData(parsed)
 
   return (
     <div className="app">
@@ -64,20 +69,7 @@ function App() {
             <span className="step-num">1</span>
             Choose your output type
           </h2>
-          <div className="view-toggle">
-            <button
-              className={`toggle-btn ${viewMode === 'resume' ? 'active' : ''}`}
-              onClick={() => setViewMode('resume')}
-            >
-              Formatted Resume
-            </button>
-            <button
-              className={`toggle-btn ${viewMode === 'slides' ? 'active' : ''}`}
-              onClick={() => setViewMode('slides')}
-            >
-              Slide Deck
-            </button>
-          </div>
+          <OutputTypeSelector value={viewMode} onChange={setViewMode} />
         </section>
 
         {/* Step 2: Paste your content */}
@@ -97,6 +89,11 @@ function App() {
             onChange={setContent}
             onFormattingHelp={() => setShowFormattingGuide(true)}
           />
+          {parsed.hadAIArtifacts && (
+            <p className="ai-stripped-notice">
+              AI conversation elements (e.g. &quot;User:&quot;, &quot;Assistant:&quot;) were detected and removed from the output.
+            </p>
+          )}
         </section>
 
         {/* Step 3: Choose the vibes */}
@@ -105,7 +102,7 @@ function App() {
             <span className="step-num">3</span>
             Choose the vibes
           </h2>
-          <VibesSelector value={vibes} onChange={setVibes} />
+          <VibesSelector value={vibes} onChange={setVibes} viewMode={viewMode} />
         </section>
 
         {/* Step 4: Review & download */}
@@ -134,6 +131,7 @@ function App() {
               </div>
               <DownloadLinks
                 parsed={parsed}
+                resumeData={resumeData}
                 viewMode={viewMode}
                 vibes={vibes}
               />
@@ -141,7 +139,7 @@ function App() {
 
             <div className="output-content" data-palette={vibes.palette} data-font={vibes.font}>
               {viewMode === 'resume' ? (
-                <FormattedResume parsed={parsed} vibes={vibes} />
+                <FormattedResume resume={resumeData} vibes={vibes} />
               ) : (
                 <SlideDeck parsed={parsed} vibes={vibes} />
               )}
