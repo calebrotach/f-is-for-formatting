@@ -102,3 +102,43 @@
   font-weight: 500;
   color: var(--color-ink);
 }
+
+.vibes-options--layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.vibe-layout-btn {
+  font-family: var(--font-sans);
+  text-align: left;
+  padding: 0.85rem 1rem;
+  background: white;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.vibe-layout-btn:hover {
+  border-color: var(--color-muted);
+}
+
+.vibe-layout-btn.active {
+  border-color: var(--color-accent);
+  background: rgba(196, 92, 62, 0.06);
+}
+
+.layout-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.layout-desc {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin-top: 0.2rem;
+}

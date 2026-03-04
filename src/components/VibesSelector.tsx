@@ -2,10 +2,14 @@ import './VibesSelector.css'
 
 export type PaletteId = 'classic' | 'bold' | 'minimal' | 'warm' | 'ocean' | 'forest'
 export type FontId = 'instrument-dm' | 'playfair-inter' | 'crimson-source'
+export type ResumeLayoutId = 'condense' | 'expand'
+export type SlideStyleId = 'compact' | 'spacious'
 
 export interface VibeOptions {
   palette: PaletteId
   font: FontId
+  resumeLayout?: ResumeLayoutId
+  slideStyle?: SlideStyleId
 }
 
 export const PALETTES: { id: PaletteId; label: string; colors: string[] }[] = [
@@ -23,12 +27,23 @@ export const FONTS: { id: FontId; label: string; heading: string; body: string }
   { id: 'crimson-source', label: 'Crimson & Source Sans', heading: 'Crimson Pro', body: 'Source Sans 3' },
 ]
 
+const RESUME_LAYOUTS: { id: ResumeLayoutId; label: string; desc: string }[] = [
+  { id: 'condense', label: 'One page', desc: 'Condense to fit on a single page' },
+  { id: 'expand', label: 'Expand', desc: 'More spacing, easier to read' },
+]
+
+const SLIDE_STYLES: { id: SlideStyleId; label: string; desc: string }[] = [
+  { id: 'compact', label: 'Compact', desc: 'More content per slide' },
+  { id: 'spacious', label: 'Spacious', desc: 'Fewer items, larger text' },
+]
+
 interface VibesSelectorProps {
   value: VibeOptions
   onChange: (vibes: VibeOptions) => void
+  viewMode: 'resume' | 'slides'
 }
 
-export default function VibesSelector({ value, onChange }: VibesSelectorProps) {
+export default function VibesSelector({ value, onChange, viewMode }: VibesSelectorProps) {
   return (
     <div className="vibes-selector">
       <div className="vibes-group">
@@ -68,6 +83,44 @@ export default function VibesSelector({ value, onChange }: VibesSelectorProps) {
           ))}
         </div>
       </div>
+
+      {viewMode === 'resume' && (
+        <div className="vibes-group">
+          <label className="vibes-label">Layout</label>
+          <div className="vibes-options vibes-options--layout">
+            {RESUME_LAYOUTS.map((l) => (
+              <button
+                key={l.id}
+                type="button"
+                className={`vibe-layout-btn ${value.resumeLayout === l.id ? 'active' : ''}`}
+                onClick={() => onChange({ ...value, resumeLayout: l.id })}
+              >
+                <span className="layout-label">{l.label}</span>
+                <span className="layout-desc">{l.desc}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {viewMode === 'slides' && (
+        <div className="vibes-group">
+          <label className="vibes-label">Slide style</label>
+          <div className="vibes-options vibes-options--layout">
+            {SLIDE_STYLES.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                className={`vibe-layout-btn ${value.slideStyle === s.id ? 'active' : ''}`}
+                onClick={() => onChange({ ...value, slideStyle: s.id })}
+              >
+                <span className="layout-label">{s.label}</span>
+                <span className="layout-desc">{s.desc}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

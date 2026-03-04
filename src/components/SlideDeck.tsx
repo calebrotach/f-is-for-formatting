@@ -10,12 +10,13 @@ interface SlideDeckProps {
 }
 
 export default function SlideDeck({ parsed, vibes }: SlideDeckProps) {
-  const slides = contentToSlides(parsed)
+  const maxItems = vibes.slideStyle === 'spacious' ? 3 : 6
+  const slides = contentToSlides(parsed, maxItems)
   const [currentSlide, setCurrentSlide] = useState(0)
 
   if (slides.length === 0) {
     return (
-      <div className={`slide-deck empty palette-${vibes.palette} font-${vibes.font}`} data-palette={vibes.palette} data-font={vibes.font}>
+      <div className={`slide-deck empty palette-${vibes.palette} font-${vibes.font} slide-style-${vibes.slideStyle || 'compact'}`} data-palette={vibes.palette} data-font={vibes.font}>
         <p>Add some content to generate slides.</p>
       </div>
     )
@@ -24,8 +25,10 @@ export default function SlideDeck({ parsed, vibes }: SlideDeckProps) {
   const slide = slides[currentSlide]
   const isTitleSlide = currentSlide === 0 && slide.length <= 2
 
+  const slideStyle = vibes.slideStyle || 'compact'
+
   return (
-    <div className={`slide-deck palette-${vibes.palette} font-${vibes.font}`} data-palette={vibes.palette} data-font={vibes.font}>
+    <div className={`slide-deck palette-${vibes.palette} font-${vibes.font} slide-style-${slideStyle}`} data-palette={vibes.palette} data-font={vibes.font}>
       <div className={`slide-viewport ${isTitleSlide ? 'title-slide' : ''}`}>
         <div className="slide-content">
           {isTitleSlide ? (

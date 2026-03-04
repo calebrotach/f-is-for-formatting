@@ -75,6 +75,21 @@
   color: rgba(255, 255, 255, 0.95);
 }
 
+/* Spacious slide style: larger text, more padding */
+.slide-deck.slide-style-spacious .slide-viewport {
+  padding: 3rem 4rem;
+}
+
+.slide-deck.slide-style-spacious .slide-heading {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.slide-deck.slide-style-spacious .slide-list li {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
 .slide-list li::before {
   content: '—';
   position: absolute;

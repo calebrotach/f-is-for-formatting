@@ -20,7 +20,7 @@ export default function FormattingGuide({ isOpen, onClose }: FormattingGuideProp
         </p>
 
         <section className="guide-section">
-          <h3>From AI tools (ChatGPT, Claude, etc.)</h3>
+          <h3>From AI tools (ChatGPT, Claude, Gemini, Copilot, etc.)</h3>
           <p>
             Ask your AI to output your resume, bio, or project description in <strong>markdown format</strong>. For example:
           </p>
@@ -28,15 +28,18 @@ export default function FormattingGuide({ isOpen, onClose }: FormattingGuideProp
             "Write my resume in markdown format with ## for section headers and bullet points for each role."
           </blockquote>
           <p>
-            Most AI tools already use markdown—headers, bullets, and lists—so you can often copy directly from the response.
+            Most AI tools use markdown—headers, bullets, and lists—so you can often copy directly from the response.
+          </p>
+          <p>
+            <strong>Tip:</strong> You can paste entire AI conversations. We automatically detect and remove chat elements like &quot;User:&quot;, &quot;Assistant:&quot;, &quot;Model:&quot;, and wrapper phrases so only your content appears in the final document.
           </p>
         </section>
 
         <section className="guide-section">
           <h3>Formatting syntax</h3>
           <ul>
-            <li><code>## Section Name</code> — Creates a section header (Experience, Education, Skills, etc.)</li>
-            <li><code>•</code> or <code>-</code> — Bullet points for list items</li>
+            <li><code>## Section Name</code> or <code>**Section Name**</code> — Creates a section header</li>
+            <li><code>•</code> or <code>-</code> or <code>*</code> — Bullet points for list items</li>
             <li><strong>First line</strong> — Treated as your name or title</li>
             <li><strong>Second line</strong> — Subtitle (e.g., job title, location)</li>
           </ul>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { ParsedContent } from '../utils/parseContent'
+import type { ResumeData } from '../types/resume'
 import type { VibeOptions } from './VibesSelector'
 import { resumeToHtml, resumeToDocx } from '../utils/exportResume'
 import { slidesToHtml, slidesToPptx } from '../utils/exportSlides'
@@ -7,16 +8,17 @@ import './DownloadLinks.css'
 
 interface DownloadLinksProps {
   parsed: ParsedContent
+  resumeData: ResumeData
   viewMode: 'resume' | 'slides'
   vibes: VibeOptions
 }
 
-export default function DownloadLinks({ parsed, viewMode, vibes }: DownloadLinksProps) {
+export default function DownloadLinks({ parsed, resumeData, viewMode, vibes }: DownloadLinksProps) {
   const [downloading, setDownloading] = useState<string | null>(null)
 
   const downloadPdf = () => {
     setDownloading('pdf')
-    const html = viewMode === 'resume' ? resumeToHtml(parsed, vibes) : slidesToHtml(parsed, vibes)
+    const html = viewMode === 'resume' ? resumeToHtml(resumeData, vibes) : slidesToHtml(parsed, vibes)
     const win = window.open('', '_blank')
     if (!win) {
       setDownloading(null)
@@ -36,7 +38,7 @@ export default function DownloadLinks({ parsed, viewMode, vibes }: DownloadLinks
     if (viewMode !== 'resume') return
     setDownloading('docx')
     try {
-      const blob = await resumeToDocx(parsed)
+      const blob = await resumeToDocx(resumeData)
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
