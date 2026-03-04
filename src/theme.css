@@ -1,0 +1,58 @@
+/* Color palettes */
+[data-palette="classic"] {
+  --theme-accent: #c45c3e;
+  --theme-accent-dark: #a84a30;
+  --theme-accent-soft: #e8a090;
+  --theme-ink: #1a1a1a;
+}
+
+[data-palette="bold"] {
+  --theme-accent: #2563eb;
+  --theme-accent-dark: #1d4ed8;
+  --theme-accent-soft: #93c5fd;
+  --theme-ink: #0a0a0a;
+}
+
+[data-palette="minimal"] {
+  --theme-accent: #737373;
+  --theme-accent-dark: #525252;
+  --theme-accent-soft: #a3a3a3;
+  --theme-ink: #171717;
+}
+
+[data-palette="warm"] {
+  --theme-accent: #b45309;
+  --theme-accent-dark: #92400e;
+  --theme-accent-soft: #fcd34d;
+  --theme-ink: #1c1917;
+}
+
+[data-palette="ocean"] {
+  --theme-accent: #0ea5e9;
+  --theme-accent-dark: #0284c7;
+  --theme-accent-soft: #7dd3fc;
+  --theme-ink: #0f172a;
+}
+
+[data-palette="forest"] {
+  --theme-accent: #22c55e;
+  --theme-accent-dark: #16a34a;
+  --theme-accent-soft: #86efac;
+  --theme-ink: #14532d;
+}
+
+/* Font pairings */
+[data-font="instrument-dm"] {
+  --theme-heading: 'Instrument Serif', Georgia, serif;
+  --theme-body: 'DM Sans', system-ui, sans-serif;
+}
+
+[data-font="playfair-inter"] {
+  --theme-heading: 'Playfair Display', Georgia, serif;
+  --theme-body: 'Inter', system-ui, sans-serif;
+}
+
+[data-font="crimson-source"] {
+  --theme-heading: 'Crimson Pro', Georgia, serif;
+  --theme-body: 'Source Sans 3', system-ui, sans-serif;
+}

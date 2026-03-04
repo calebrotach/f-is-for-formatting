@@ -1,0 +1,130 @@
+.formatting-guide-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.formatting-guide {
+  background: white;
+  border-radius: var(--radius-lg);
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem 2rem 2.5rem;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+}
+
+.guide-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--color-cream);
+  border-radius: var(--radius-sm);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-warm-gray);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guide-close:hover {
+  background: var(--color-border);
+  color: var(--color-ink);
+}
+
+.guide-title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin: 0 0 1rem;
+}
+
+.guide-intro {
+  color: var(--color-warm-gray);
+  margin: 0 0 1.5rem;
+  line-height: 1.6;
+}
+
+.guide-section {
+  margin-bottom: 1.5rem;
+}
+
+.guide-section h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-charcoal);
+  margin: 0 0 0.5rem;
+}
+
+.guide-section p,
+.guide-section ul {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.guide-section ul {
+  padding-left: 1.25rem;
+}
+
+.guide-section li {
+  margin-bottom: 0.4rem;
+}
+
+.guide-section code {
+  background: var(--color-cream);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+}
+
+.guide-section blockquote {
+  margin: 0.75rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--color-cream);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+  color: var(--color-charcoal);
+}
+
+.guide-example {
+  margin: 0.75rem 0;
+  padding: 1rem 1.25rem;
+  background: #1a1a1a;
+  color: #e5e0d8;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.guide-done {
+  margin-top: 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.guide-done:hover {
+  opacity: 0.9;
+}

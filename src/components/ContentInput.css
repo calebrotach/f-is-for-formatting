@@ -1,0 +1,69 @@
+.content-input {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+.input-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.input-textarea {
+  width: 100%;
+  min-height: 280px;
+  padding: 1.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.input-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(196, 92, 62, 0.15);
+}
+
+.input-textarea::placeholder {
+  color: var(--color-muted);
+}
+
+.input-hint {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin: 0.75rem 0 0;
+}
+
+.input-hint code {
+  background: var(--color-cream);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+}
+
+.input-help-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.input-help-link:hover {
+  color: var(--color-charcoal);
+}

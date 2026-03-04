@@ -1,0 +1,35 @@
+:root {
+  --color-cream: #faf8f5;
+  --color-ink: #1a1a1a;
+  --color-charcoal: #2d2d2d;
+  --color-warm-gray: #6b6358;
+  --color-accent: #c45c3e;
+  --color-accent-soft: #e8a090;
+  --color-muted: #9a9186;
+  --color-border: #e5e0d8;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-soft: 0 4px 24px rgba(26, 26, 26, 0.06);
+  --shadow-card: 0 8px 40px rgba(26, 26, 26, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-cream);
+  color: var(--color-ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}

@@ -1,0 +1,104 @@
+.vibes-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.vibes-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.vibes-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vibes-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vibes-options--palettes {
+  gap: 0.75rem;
+}
+
+.vibe-palette-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  background: white;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.palette-swatches {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.palette-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.vibe-palette-btn.active .palette-name {
+  color: var(--color-ink);
+}
+
+.vibe-palette-btn:hover {
+  border-color: var(--color-muted);
+}
+
+.vibe-palette-btn.active {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.palette-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.vibes-options--fonts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+
+.vibe-font-btn {
+  font-family: var(--font-sans);
+  text-align: left;
+  padding: 0.65rem 0.9rem;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.vibe-font-btn:hover {
+  border-color: var(--color-muted);
+}
+
+.vibe-font-btn.active {
+  border-color: var(--color-accent);
+  background: rgba(196, 92, 62, 0.06);
+}
+
+.font-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-ink);
+}
